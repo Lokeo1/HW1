@@ -3,6 +3,7 @@
         "**/target/**": true
     },
     "java.diagnostic.filter": [
-        "**/simple-lexer/**/*.java"
+        "**/simple-lexer/**/*.java",
+        "**/simple-lexer-subset/**/*.java"
     ]
 }

@@ -1,4 +1,4 @@
-# Assignment I: Simple Lexer
+# Assignment 1: Simple Lexer
 
 ## Problem Description
 

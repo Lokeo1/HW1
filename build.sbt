@@ -12,7 +12,7 @@ lazy val commonSettings = Seq(
     "-feature",
     "-unchecked"
   ),
-  javacOptions ++= Seq("-source", "26", "-target", "26"),  
+  javacOptions ++= Seq("-source", "26", "-target", "26"),
   Compile / doc / javacOptions := Seq("-notimestamp", "-linksource"),
   libraryDependencies ++= Seq(
     "com.novocode" % "junit-interface" % "0.11" % "test"
@@ -23,6 +23,15 @@ lazy val commonSettings = Seq(
 )
 
 lazy val simpleLexer =
-  (project in file("simple-lexer")).settings(commonSettings: _*).settings(
-    libraryDependencies += "junit" % "junit" % "4.13.2" % Test
-  )
+  (project in file("simple-lexer"))
+    .settings(commonSettings: _*)
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
+
+lazy val simpleLexerSubset =
+  (project in file("simple-lexer-subset"))
+    .settings(commonSettings: _*)
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )

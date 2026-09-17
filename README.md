@@ -20,3 +20,4 @@
 This section provides links to the README files for each assignment in the course. The list will be updated as new assignments are added throughout the semester.
 
 1. See [simple-lexer/README.md](simple-lexer/README.md)
+2. See [simple-lexer-subset/README.md](simple-lexer-subset/README.md)
