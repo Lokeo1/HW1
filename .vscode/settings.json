@@ -5,5 +5,9 @@
     "java.diagnostic.filter": [
         "**/simple-lexer/**/*.java",
         "**/simple-lexer-subset/**/*.java"
-    ]
+    ],
+    "java.project.sourcePaths": [
+        "simple-lexer-subset\\src\\main\\java"
+    ],
+    "java.project.referencedLibraries": []
 }
