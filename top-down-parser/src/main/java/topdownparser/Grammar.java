@@ -36,7 +36,7 @@ import java.util.Set;
  */
 public final class Grammar {
   /** Symbol used to display an empty production. */
-  public static final String EPSILON = "ε";
+  public static final String EPSILON = "\u03b5";
   /** Terminal used by the parsing table for end of input. */
   public static final String END_MARKER = "$";
 
