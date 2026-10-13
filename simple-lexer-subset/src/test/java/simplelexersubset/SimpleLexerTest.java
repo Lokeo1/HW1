@@ -50,6 +50,18 @@ public class SimpleLexerTest {
     assertToken(" \t\nname", Token.Type.ID, "name");
   }
 
+  @Test
+  public void scansExpressionPunctuation() {
+    assertTokenSequence("(if + 12) * count",
+        Token.Type.LPAREN, "(",
+        Token.Type.IF, "if",
+        Token.Type.PLUS, "+",
+        Token.Type.INT, "12",
+        Token.Type.RPAREN, ")",
+        Token.Type.STAR, "*",
+        Token.Type.ID, "count");
+  }
+
   @Test(expected = SimpleLexer.LexicalException.class)
   public void rejectsInvalidCharacters() {
     new SimpleLexer("$").nextToken();

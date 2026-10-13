@@ -6,6 +6,10 @@ public final class Token {
     IF,
     INT,
     ID,
+    LPAREN,
+    RPAREN,
+    PLUS,
+    STAR,
     EOF
   }
 
