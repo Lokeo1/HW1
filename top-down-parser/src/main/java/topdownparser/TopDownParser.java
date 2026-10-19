@@ -130,6 +130,8 @@ public final class TopDownParser {
         return "+";
       case STAR:
         return "*";
+      case EQ:
+        return "=";
       default:
         return token.getType().name();
     }

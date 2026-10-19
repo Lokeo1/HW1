@@ -4,11 +4,11 @@
 
 Your task is to complete the lexer implementation. As in the previous assignment, the lexer should recognize the following regular expression:
 
-- `IF | ID | INT | LPAREN | RPAREN | PLUS | STAR`
+- `IF | ID | INT | LPAREN | RPAREN | PLUS | STAR | EQ`
     - `IF` is defined as `'if'`
     - `ID` is defined as `[A-Za-z_] [A-Za-z0-9_]*`
     - `INT` is defined as `0 | [1-9] [0-9]*`
-    - `LPAREN`, `RPAREN`, `PLUS`, and `STAR` are respectively `'('`, `')'`, `'+'`, and `'*'`
+    - `LPAREN`, `RPAREN`, `PLUS`, `STAR`, and `EQ` are respectively `'('`, `')'`, `'+'`, `'*'`, and `'='`
 
 However, unlike the previous assignment where you directly hard-coded the DFA, in this assignment you need to implement the subset construction algorithm to convert an NFA to a DFA.
 

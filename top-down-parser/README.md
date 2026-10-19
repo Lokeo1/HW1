@@ -31,11 +31,11 @@ T' → * F T' | ε
 F → INT | "(" E ")"
 ```
 
-Terminals must be supplied by `simple-lexer-subset`: use `IF`, `ID`, and `INT` for word-like tokens, and use the literal symbols `(`, `)`, `+`, and `*` for punctuation. `$` is reserved for the end-of-input column.
+Terminals must be supplied by `simple-lexer-subset`: use `IF`, `ID`, and `INT` for word-like tokens, and use the literal symbols `(`, `)`, `+`, `*`, and `=` for punctuation. `$` is reserved for the end-of-input column.
 
 ### Tasks
 
-1. Complete the `build` method in [src/main/java/topdownparser/Ll1ParsingTable.java](src/main/java/topdownparser/Ll1ParsingTable.java). 
+1. Complete [src/main/java/topdownparser/Ll1ParsingTable.java](src/main/java/topdownparser/Ll1ParsingTable.java). 
 2. To test your solution, run JUnit tests in [src/test/java/topdownparser/TopDownParserTest.java](src/test/java/topdownparser/TopDownParserTest.java). You can execute them by typing the following command from the repository root:
 
 

@@ -1,0 +1,10 @@
+{
+  "start": "S",
+  "nonterminals": ["S", "A", "B"],
+  "terminals": ["IF", "ID", "INT", "+", "*"],
+  "productions": {
+    "S": [["IF", "A", "INT"], ["ID", "A", "+"], ["IF", "B", "+"], ["ID", "B", "INT"]],
+    "A": [["*"]],
+    "B": [["*"]]
+  }
+}

@@ -10,6 +10,7 @@ public final class Token {
     RPAREN,
     PLUS,
     STAR,
+    EQ,
     EOF
   }
 

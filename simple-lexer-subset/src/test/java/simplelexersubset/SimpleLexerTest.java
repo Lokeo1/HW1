@@ -52,14 +52,16 @@ public class SimpleLexerTest {
 
   @Test
   public void scansExpressionPunctuation() {
-    assertTokenSequence("(if + 12) * count",
+    assertTokenSequence("(if + 12) * count = value",
         Token.Type.LPAREN, "(",
         Token.Type.IF, "if",
         Token.Type.PLUS, "+",
         Token.Type.INT, "12",
         Token.Type.RPAREN, ")",
         Token.Type.STAR, "*",
-        Token.Type.ID, "count");
+        Token.Type.ID, "count",
+        Token.Type.EQ, "=",
+        Token.Type.ID, "value");
   }
 
   @Test(expected = SimpleLexer.LexicalException.class)
