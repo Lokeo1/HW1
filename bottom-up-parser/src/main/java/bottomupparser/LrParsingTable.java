@@ -229,14 +229,26 @@ public final class LrParsingTable {
   }
 
   private static Automaton buildLR0Automaton(final Grammar grammar, final Production augmented) {
-    // TODO: implement the body
-    return null; // TODO: Replace null with an Automaton instance. You can use the buildAutomaton method to create one.
+    final Set<Item> initial = closureLR0(
+        Collections.singleton(new Item(augmented, 0, null)), grammar);
+    return buildAutomaton(initial, grammar, new GotoFunction() {
+      @Override
+      public Set<Item> apply(final Set<Item> state, final String symbol) {
+        return gotoLR0(state, symbol, grammar);
+      }
+    });
   }
 
   private static Automaton buildCanonicalLR1Automaton(final Grammar grammar,
       final GrammarAnalysis analysis, final Production augmented) {
-    // TODO: implement the body
-    return null; // TODO: Replace null with an Automaton instance. You can use the buildAutomaton method to create one.
+    final Set<Item> initial = closureLr1(
+        Collections.singleton(new Item(augmented, 0, Grammar.END_MARKER)), grammar, analysis);
+    return buildAutomaton(initial, grammar, new GotoFunction() {
+      @Override
+      public Set<Item> apply(final Set<Item> state, final String symbol) {
+        return gotoLr1(state, symbol, grammar, analysis);
+      }
+    });
   }
 
   private static Automaton buildAutomaton(final Set<Item> initial, final Grammar grammar,
@@ -347,8 +359,34 @@ public final class LrParsingTable {
   }
 
   private static Automaton mergeLALRStates(final Automaton canonical) {
-    // TODO: implement the body
-    return null; // TODO: Replace null with an Automaton instance.
+    final int count = canonical.states.size();
+    final List<Set<Item>> states = new ArrayList<Set<Item>>(count);
+    final List<Map<String, Integer>> transitions =
+        new ArrayList<Map<String, Integer>>(count);
+    final Map<Set<Core>, Integer> coreNumbers = new LinkedHashMap<Set<Core>, Integer>();
+    final int[] mergedNumbers = new int[count];
+    for (int state = 0; state < count; state++) {
+      final Set<Item> items = canonical.states.get(state);
+      final Set<Core> core = coreOf(items);
+      Integer merged = coreNumbers.get(core);
+      if (merged == null) {
+        merged = states.size();
+        coreNumbers.put(core, merged);
+        states.add(new LinkedHashSet<Item>(items));
+        transitions.add(new LinkedHashMap<String, Integer>());
+      } else {
+        states.get(merged).addAll(items);
+      }
+      mergedNumbers[state] = merged;
+    }
+    for (int state = 0; state < count; state++) {
+      final Map<String, Integer> row = transitions.get(mergedNumbers[state]);
+      for (final Map.Entry<String, Integer> transition
+          : canonical.transitions.get(state).entrySet()) {
+        row.put(transition.getKey(), mergedNumbers[transition.getValue()]);
+      }
+    }
+    return new Automaton(states, transitions);
   }
 
   private static Set<Core> coreOf(final Set<Item> state) {
