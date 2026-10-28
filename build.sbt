@@ -23,6 +23,7 @@ lazy val commonSettings = Seq(
     "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.1",
     "org.antlr" % "antlr4-runtime" % "4.13.1",
     "org.antlr" % "ST4" % "4.3.1",
+    "org.antlr" % "antlr4" % "4.13.1",
     "org.ow2.asm" % "asm" % "8.0.1",
     "org.ow2.asm" % "asm-commons" % "8.0.1",
     "org.ow2.asm" % "asm-util" % "8.0.1",
@@ -76,36 +77,17 @@ lazy val bottomUpParser =
     )
     .dependsOn(topDownParser, simpleLexerSubset)
 
-lazy val esjcParser = {
-  val `esjc-parser` =
-    (project in file("esjc-parser")).settings(commonSettings: _*).dependsOn(sjc)
-  `esjc-parser`
-}
-
-lazy val esjcAst = {
-  val `esjc-ast` = (project in file("esjc-ast"))
+lazy val sjcParser =
+  (project in file("sjc-parser"))
     .settings(commonSettings: _*)
-    .dependsOn(sjc, esjcParser)
-  `esjc-ast`
-}
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
 
-lazy val esjcTypeChecker = {
-  val `esjc-typechecker` = (project in file("esjc-typechecker"))
+lazy val sjcAst =
+  (project in file("sjc-ast"))
     .settings(commonSettings: _*)
-    .dependsOn(sjc, esjcParser, esjcAst)
-  `esjc-typechecker`
-}
-
-lazy val esjcCodeGen = {
-  val `esjc-codegen` = (project in file("esjc-codegen"))
-    .settings(commonSettings: _*)
-    .dependsOn(sjc, esjcParser, esjcAst, esjcTypeChecker)
-  `esjc-codegen`
-}
-
-lazy val esjcLlGen = {
-  val `esjc-ll-gen` = (project in file("esjc-ll-gen"))
-    .settings(commonSettings: _*)
-    .dependsOn(sjc, esjcParser, esjcAst, esjcTypeChecker)
-  `esjc-ll-gen`
-}
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
+    .dependsOn(sjcParser)

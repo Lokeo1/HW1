@@ -23,3 +23,5 @@ This section provides links to the README files for each assignment in the cours
 2. See [simple-lexer-subset/README.md](simple-lexer-subset/README.md)
 3. See [top-down-parser/README.md](top-down-parser/README.md)
 4. See [bottom-up-parser/READE.md](bottom-up-parser/README.md)
+5. See [sjc-parser/README.md](sjc-parser/README.md)
+6. See [sjc-ast/README.md](sjc-ast/README.md)
