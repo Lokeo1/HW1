@@ -1,0 +1,72 @@
+Empty ==> class Empty {
+ManyTypes ==> class ManyTypes {
+"SyntaxTorture.returnVoid()" in "SyntaxTorture.returnVoid();" ==> static void returnVoid(){
+"b" in "b ? null : ((m))" ==> boolean b;
+"b" in "b=false" ==> boolean b;
+"b" in "b=true" ==> boolean b;
+"b" in "true && b" ==> boolean b;
+"b_array" in "b_array=new boolean[]{true}" ==> boolean[] b_array;
+"b_array" in "b_array=returnBooleanArray(m.b_array)" ==> boolean[] b_array;
+"b_array" in "m.b_array=b_array" ==> boolean[] b_array;
+"c" in "!c" ==> boolean c;
+"c" in "(c)" ==> boolean[] c;
+"c" in "c=new boolean[]{true,false,false}" ==> boolean[] c;
+"c" in "c=true" ==> boolean c;
+"e" in "return e;" ==> Empty[] e
+"f" in "f=new Empty()" ==> Empty f;
+"f" in "return f;" ==> Empty f;
+"i" in "+4 != i" ==> int i;
+"i" in "+i" ==> int i;
+"i" in "3 == i" ==> int i;
+"i" in "i != 0" ==> int i;
+"i" in "i + i" ==> int i;
+"i" in "i <= 0" ==> int i;
+"i" in "i == -1" ==> int i;
+"i" in "i > 2" ==> int i;
+"i" in "i >= -1" ==> int i;
+"i" in "i >>> +-1" ==> int i;
+"i" in "i++" ==> int i;
+"i" in "i--" ==> int i;
+"i" in "i=0" ==> int i;
+"i" in "i=2" ==> int i;
+"i" in "i=4" ==> int i;
+"i" in "i=i + i" ==> int i;
+"i" in "i=i >>> +-1" ==> int i;
+"i" in "i=j" ==> int i;
+"i" in "i=new int[(1 + ((2 - 3) * 4) / (5 % 6 << 7) >> (8) >>> 9) + 3]" ==> int[] i;
+"i" in "j == i" ==> int i;
+"i" in "j=i" ==> int i;
+"i" in "new ManyTypes[i]" ==> int i;
+"i" in "return i;" ==> int i;
+"i" in "return i;" ==> int[] i;
+"i" in "{0,i,j,7}" ==> int i;
+"i" in "~9 <= i" ==> int i;
+"i_array" in "i_array=new int[]{0,i,j,7}" ==> int[] i_array;
+"i_array" in "i_array[m.i]" ==> int[] i_array;
+"i_array" in "i_array[returnInt()]" ==> int[] i_array;
+"i_array" in "i_array[returnIntArray()[2]]" ==> int[] i_array;
+"j" in "+7 << ~(-5) == j" ==> int j;
+"j" in "i=j" ==> int j;
+"j" in "j < (+i << 4)" ==> int j;
+"j" in "j == i" ==> int j;
+"j" in "j++" ==> int j;
+"j" in "j=0" ==> int j;
+"j" in "j=i" ==> int j;
+"j" in "m_array[j]" ==> int j;
+"j" in "{0,i,j,7}" ==> int j;
+"m" in "(m)" ==> ManyTypes m;
+"m" in "m.b" ==> ManyTypes m;
+"m" in "m.b_array" ==> ManyTypes m;
+"m" in "m.i" ==> ManyTypes m;
+"m" in "m=b ? null : ((m))" ==> ManyTypes m;
+"m" in "m=new ManyTypes()" ==> ManyTypes m;
+"m" in "m=null" ==> ManyTypes m;
+"m" in "m_array[0]=m" ==> ManyTypes m;
+"m_array" in "m_array=new ManyTypes[i]" ==> ManyTypes[] m_array;
+"m_array" in "m_array[0]" ==> ManyTypes[] m_array;
+"m_array" in "m_array[i_array[m.i]]" ==> ManyTypes[] m_array;
+"m_array" in "m_array[j]" ==> ManyTypes[] m_array;
+"returnBooleanArray(m.b_array)" in "b_array=returnBooleanArray(m.b_array)" ==> static boolean[] returnBooleanArray(boolean[] b){
+"returnInt()" in "i_array[returnInt()]" ==> static int returnInt(){
+"returnInt()" in "returnInt();" ==> static int returnInt(){
+"returnIntArray()" in "returnIntArray()[2]" ==> static int[] returnIntArray(){

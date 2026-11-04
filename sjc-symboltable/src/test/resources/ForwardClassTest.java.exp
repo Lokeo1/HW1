@@ -1,0 +1,4 @@
+Bar ==> class Bar {
+Foo ==> class Foo {
+"a" in "a.b" ==> Foo a;
+"a" in "a=new Foo()" ==> Foo a;

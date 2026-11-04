@@ -1,0 +1,5 @@
+"equal(2,2)" in "equal(2,2) == true" ==> static boolean equal(int i,int j){
+"equal(2,3)" in "equal(2,3) == false" ==> static boolean equal(int i,int j){
+"equal(3,2)" in "equal(3,2) == false" ==> static boolean equal(int i,int j){
+"i" in "i == j" ==> int i
+"j" in "i == j" ==> int j

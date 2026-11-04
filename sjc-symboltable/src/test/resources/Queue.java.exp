@@ -1,0 +1,31 @@
+Data ==> class Data {
+LinkedList ==> class LinkedList {
+LinkedNode ==> class LinkedNode {
+"d" in "d.i" ==> Data d;
+"d" in "d=llRemoveFirst(ll)" ==> Data d;
+"d" in "d=new Data()" ==> Data d;
+"d" in "llAddLast(ll,d)" ==> Data d;
+"data" in "data != null" ==> Data data
+"data" in "ll.last.data=data" ==> Data data
+"i" in "i + 1" ==> int i;
+"i" in "i < 10" ==> int i;
+"i" in "i++" ==> int i;
+"i" in "i=0" ==> int i;
+"ll" in "ll != null" ==> LinkedList ll
+"ll" in "ll.head" ==> LinkedList ll
+"ll" in "ll.last" ==> LinkedList ll
+"ll" in "ll.size" ==> LinkedList ll
+"ll" in "ll=llNewLinkedList()" ==> LinkedList ll;
+"ll" in "llAddLast(ll,d)" ==> LinkedList ll;
+"ll" in "llIsEmpty(ll)" ==> LinkedList ll;
+"ll" in "llRemoveFirst(ll)" ==> LinkedList ll;
+"llAddLast(ll,d)" in "llAddLast(ll,d);" ==> static void llAddLast(LinkedList ll,Data data){
+"llIsEmpty(ll)" in "!llIsEmpty(ll)" ==> static boolean llIsEmpty(LinkedList ll){
+"llNewLinkedList()" in "ll=llNewLinkedList()" ==> static LinkedList llNewLinkedList(){
+"llRemoveFirst(ll)" in "d=llRemoveFirst(ll)" ==> static Data llRemoveFirst(LinkedList ll){
+"result" in "result.head" ==> LinkedList result;
+"result" in "result.last" ==> LinkedList result;
+"result" in "result=ll.head.next.data" ==> Data result;
+"result" in "result=new LinkedList()" ==> LinkedList result;
+"result" in "return result;" ==> Data result;
+"result" in "return result;" ==> LinkedList result;

@@ -1,0 +1,5 @@
+NEN ==> class NEN {
+"returnNull()" in "null != returnNull()" ==> static NEN returnNull(){
+"returnNull()" in "null == returnNull()" ==> static NEN returnNull(){
+"returnNull()" in "returnNull() != null" ==> static NEN returnNull(){
+"returnNull()" in "returnNull() == null" ==> static NEN returnNull(){

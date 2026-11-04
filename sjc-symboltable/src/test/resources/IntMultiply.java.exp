@@ -1,0 +1,6 @@
+"i" in "i * j" ==> int i
+"j" in "i * j" ==> int j
+"multiply(-2,-3)" in "multiply(-2,-3) == 6" ==> static int multiply(int i,int j){
+"multiply(-2,3)" in "multiply(-2,3) == -6" ==> static int multiply(int i,int j){
+"multiply(2,-3)" in "multiply(2,-3) == -6" ==> static int multiply(int i,int j){
+"multiply(2,3)" in "multiply(2,3) == 6" ==> static int multiply(int i,int j){

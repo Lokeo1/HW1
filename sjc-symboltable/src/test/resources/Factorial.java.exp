@@ -1,0 +1,13 @@
+"args" in "StaticJavaLib.getIntArgument(args,0)" ==> String[] args
+"factorial(StaticJavaLib.getIntArgument(args,0))" in "StaticJavaLib.println(factorial(StaticJavaLib.getIntArgument(args,0)))" ==> static int factorial(int n){
+"i" in "i + 1" ==> int i;
+"i" in "i <= n" ==> int i;
+"i" in "i=2" ==> int i;
+"i" in "i=i + 1" ==> int i;
+"i" in "result * i" ==> int i;
+"n" in "i <= n" ==> int n
+"n" in "n >= 1" ==> int n
+"result" in "result * i" ==> int result;
+"result" in "result=1" ==> int result;
+"result" in "result=result * i" ==> int result;
+"result" in "return result;" ==> int result;

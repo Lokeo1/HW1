@@ -1,0 +1,6 @@
+"b" in "b || c" ==> boolean b
+"c" in "b || c" ==> boolean c
+"or(false,false)" in "or(false,false) == false" ==> static boolean or(boolean b,boolean c){
+"or(false,true)" in "or(false,true) == true" ==> static boolean or(boolean b,boolean c){
+"or(true,false)" in "or(true,false) == true" ==> static boolean or(boolean b,boolean c){
+"or(true,true)" in "or(true,true) == true" ==> static boolean or(boolean b,boolean c){

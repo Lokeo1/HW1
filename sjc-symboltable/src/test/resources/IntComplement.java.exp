@@ -1,0 +1,3 @@
+"complement(-5)" in "complement(-5) == 4" ==> static int complement(int i){
+"complement(4)" in "complement(4) == -5" ==> static int complement(int i){
+"i" in "~i" ==> int i

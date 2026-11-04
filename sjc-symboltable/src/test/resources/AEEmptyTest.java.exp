@@ -1,0 +1,9 @@
+"b" in "b=x + y > 2" ==> boolean b;
+"b" in "b=x > y" ==> boolean b;
+"b" in "while (b) {" ==> boolean b;
+"x" in "x + y" ==> int x;
+"x" in "x > y" ==> int x;
+"x" in "x=1" ==> int x;
+"y" in "x + y" ==> int y;
+"y" in "x > y" ==> int y;
+"y" in "y=2" ==> int y;

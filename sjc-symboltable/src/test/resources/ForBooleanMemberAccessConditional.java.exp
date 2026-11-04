@@ -1,0 +1,6 @@
+FBMAC ==> class FBMAC {
+"b" in "b == false" ==> boolean b;
+"b" in "b=false" ==> boolean b;
+"b" in "b=true" ==> boolean b;
+"o" in "o.b" ==> FBMAC o;
+"o" in "o=new FBMAC()" ==> FBMAC o;

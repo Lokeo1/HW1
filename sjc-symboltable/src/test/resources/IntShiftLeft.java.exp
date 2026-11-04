@@ -1,0 +1,4 @@
+"i" in "i << j" ==> int i
+"j" in "i << j" ==> int j
+"shiftLeft(-2,1)" in "shiftLeft(-2,1) == -4" ==> static int shiftLeft(int i,int j){
+"shiftLeft(2,1)" in "shiftLeft(2,1) == 4" ==> static int shiftLeft(int i,int j){

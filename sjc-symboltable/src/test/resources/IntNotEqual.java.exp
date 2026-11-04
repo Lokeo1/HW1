@@ -1,0 +1,5 @@
+"i" in "i != j" ==> int i
+"j" in "i != j" ==> int j
+"notEqual(2,2)" in "notEqual(2,2) == false" ==> static boolean notEqual(int i,int j){
+"notEqual(2,3)" in "notEqual(2,3) == true" ==> static boolean notEqual(int i,int j){
+"notEqual(3,2)" in "notEqual(3,2) == true" ==> static boolean notEqual(int i,int j){

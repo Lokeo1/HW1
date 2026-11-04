@@ -1,0 +1,10 @@
+"i" in "i < 5" ==> int i;
+"i" in "i++" ==> int i;
+"i" in "i=0" ==> int i;
+"i" in "x + i" ==> int i;
+"j" in "j++" ==> int j;
+"j" in "j=0" ==> int j;
+"j" in "x + i + j" ==> int j;
+"x" in "x + i" ==> int x;
+"x" in "x=0" ==> int x;
+"x" in "x=x + i + j" ==> int x;

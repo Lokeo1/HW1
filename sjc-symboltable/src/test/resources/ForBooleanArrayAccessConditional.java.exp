@@ -1,0 +1,5 @@
+"B" in "B=new boolean[1]" ==> boolean[] B;
+"B" in "B[0]" ==> boolean[] B;
+"b" in "b == false" ==> boolean b;
+"b" in "b=false" ==> boolean b;
+"b" in "b=true" ==> boolean b;

@@ -1,0 +1,11 @@
+"b" in "!b" ==> boolean b
+"complement(-5)" in "complement(-5) == 4" ==> static int complement(int i){
+"i" in "+i" ==> int i
+"i" in "-i" ==> int i
+"i" in "~i" ==> int i
+"not(false)" in "not(false) == true" ==> static boolean not(boolean b){
+"not(true)" in "not(true) == false" ==> static boolean not(boolean b){
+"unaryMinus(-2)" in "unaryMinus(-2) == 2" ==> static int unaryMinus(int i){
+"unaryMinus(2)" in "unaryMinus(2) == -2" ==> static int unaryMinus(int i){
+"unaryPlus(-2)" in "unaryPlus(-2) == -2" ==> static int unaryPlus(int i){
+"unaryPlus(2)" in "unaryPlus(2) == 2" ==> static int unaryPlus(int i){

@@ -1,0 +1,10 @@
+"divide(-2,-3)" in "divide(-2,-3) == 0" ==> static int divide(int i,int j){
+"divide(-2,3)" in "divide(-2,3) == 0" ==> static int divide(int i,int j){
+"divide(-3,-2)" in "divide(-3,-2) == 1" ==> static int divide(int i,int j){
+"divide(-3,2)" in "divide(-3,2) == -1" ==> static int divide(int i,int j){
+"divide(2,-3)" in "divide(2,-3) == 0" ==> static int divide(int i,int j){
+"divide(2,3)" in "divide(2,3) == 0" ==> static int divide(int i,int j){
+"divide(3,-2)" in "divide(3,-2) == -1" ==> static int divide(int i,int j){
+"divide(3,2)" in "divide(3,2) == 1" ==> static int divide(int i,int j){
+"i" in "i / j" ==> int i
+"j" in "i / j" ==> int j

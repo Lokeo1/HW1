@@ -1,0 +1,2 @@
+"i" in "i=returnIntArray()" ==> int[] i;
+"returnIntArray()" in "i=returnIntArray()" ==> static int[] returnIntArray(){

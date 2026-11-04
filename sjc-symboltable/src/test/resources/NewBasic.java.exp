@@ -1,0 +1,4 @@
+"b" in "b=new boolean[4]" ==> boolean[] b;
+"c" in "c=new boolean[]{true,false}" ==> boolean[] c;
+"i" in "i=new int[4]" ==> int[] i;
+"j" in "j=new int[]{1,2,3}" ==> int[] j;

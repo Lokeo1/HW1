@@ -1,0 +1,5 @@
+"greaterThan(2,2)" in "greaterThan(2,2) == false" ==> static boolean greaterThan(int i,int j){
+"greaterThan(2,3)" in "greaterThan(2,3) == false" ==> static boolean greaterThan(int i,int j){
+"greaterThan(3,2)" in "greaterThan(3,2) == true" ==> static boolean greaterThan(int i,int j){
+"i" in "i > j" ==> int i
+"j" in "i > j" ==> int j

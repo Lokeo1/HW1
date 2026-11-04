@@ -1,0 +1,7 @@
+A ==> class A {
+B ==> class B {
+"a" in "a.x" ==> A a;
+"a" in "a=new A()" ==> A a;
+"b" in "b.x" ==> B b;
+"b" in "b=new B()" ==> B b;
+"z" in "z=a.x + b.x" ==> int z;

@@ -1,0 +1,2 @@
+"a" in "a == 0" ==> int a;
+"a" in "a=0" ==> int a;

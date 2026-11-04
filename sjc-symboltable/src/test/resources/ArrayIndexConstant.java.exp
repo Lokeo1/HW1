@@ -1,0 +1,2 @@
+"i_array" in "i_array=new int[]{1,2,3}" ==> int[] i_array;
+"i_array" in "i_array[0]" ==> int[] i_array;

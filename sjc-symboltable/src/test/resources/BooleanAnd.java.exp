@@ -1,0 +1,6 @@
+"and(false,false)" in "and(false,false) == false" ==> static boolean and(boolean b,boolean c){
+"and(false,true)" in "and(false,true) == false" ==> static boolean and(boolean b,boolean c){
+"and(true,false)" in "and(true,false) == false" ==> static boolean and(boolean b,boolean c){
+"and(true,true)" in "and(true,true) == true" ==> static boolean and(boolean b,boolean c){
+"b" in "b && c" ==> boolean b
+"c" in "b && c" ==> boolean c

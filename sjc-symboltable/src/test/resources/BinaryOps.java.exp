@@ -1,0 +1,92 @@
+"a" in "a != b" ==> int a
+"a" in "a % b" ==> int a
+"a" in "a && b" ==> boolean a
+"a" in "a * b" ==> int a
+"a" in "a + b" ==> int a
+"a" in "a - b" ==> int a
+"a" in "a / b" ==> int a
+"a" in "a < b" ==> int a
+"a" in "a <= b" ==> int a
+"a" in "a == b" ==> int a
+"a" in "a > b" ==> int a
+"a" in "a >= b" ==> int a
+"a" in "a || b" ==> boolean a
+"add(-2,-3)" in "add(-2,-3) == -5" ==> static int add(int a,int b){
+"add(-2,3)" in "add(-2,3) == 1" ==> static int add(int a,int b){
+"add(2,-3)" in "add(2,-3) == -1" ==> static int add(int a,int b){
+"add(2,3)" in "add(2,3) == 5" ==> static int add(int a,int b){
+"b" in "a != b" ==> int b
+"b" in "a % b" ==> int b
+"b" in "a && b" ==> boolean b
+"b" in "a * b" ==> int b
+"b" in "a + b" ==> int b
+"b" in "a - b" ==> int b
+"b" in "a / b" ==> int b
+"b" in "a < b" ==> int b
+"b" in "a <= b" ==> int b
+"b" in "a == b" ==> int b
+"b" in "a > b" ==> int b
+"b" in "a >= b" ==> int b
+"b" in "a || b" ==> boolean b
+"boolAnd(false,false)" in "boolAnd(false,false) == false" ==> static boolean boolAnd(boolean a,boolean b){
+"boolAnd(false,true)" in "boolAnd(false,true) == false" ==> static boolean boolAnd(boolean a,boolean b){
+"boolAnd(true,false)" in "boolAnd(true,false) == false" ==> static boolean boolAnd(boolean a,boolean b){
+"boolAnd(true,true)" in "boolAnd(true,true) == true" ==> static boolean boolAnd(boolean a,boolean b){
+"boolOr(false,false)" in "boolOr(false,false) == false" ==> static boolean boolOr(boolean a,boolean b){
+"boolOr(false,true)" in "boolOr(false,true) == true" ==> static boolean boolOr(boolean a,boolean b){
+"boolOr(true,false)" in "boolOr(true,false) == true" ==> static boolean boolOr(boolean a,boolean b){
+"boolOr(true,true)" in "boolOr(true,true) == true" ==> static boolean boolOr(boolean a,boolean b){
+"divide(-2,-3)" in "divide(-2,-3) == 0" ==> static int divide(int a,int b){
+"divide(-2,3)" in "divide(-2,3) == 0" ==> static int divide(int a,int b){
+"divide(-3,-2)" in "divide(-3,-2) == 1" ==> static int divide(int a,int b){
+"divide(-3,2)" in "divide(-3,2) == -1" ==> static int divide(int a,int b){
+"divide(2,-3)" in "divide(2,-3) == 0" ==> static int divide(int a,int b){
+"divide(2,3)" in "divide(2,3) == 0" ==> static int divide(int a,int b){
+"divide(3,-2)" in "divide(3,-2) == -1" ==> static int divide(int a,int b){
+"divide(3,2)" in "divide(3,2) == 1" ==> static int divide(int a,int b){
+"equal(2,2)" in "equal(2,2) == true" ==> static boolean equal(int a,int b){
+"equal(2,3)" in "equal(2,3) == false" ==> static boolean equal(int a,int b){
+"equal(3,2)" in "equal(3,2) == false" ==> static boolean equal(int a,int b){
+"greaterThan(2,2)" in "greaterThan(2,2) == false" ==> static boolean greaterThan(int a,int b){
+"greaterThan(2,3)" in "greaterThan(2,3) == false" ==> static boolean greaterThan(int a,int b){
+"greaterThan(3,2)" in "greaterThan(3,2) == true" ==> static boolean greaterThan(int a,int b){
+"greaterThanOrEqual(2,2)" in "greaterThanOrEqual(2,2) == true" ==> static boolean greaterThanOrEqual(int a,int b){
+"greaterThanOrEqual(2,3)" in "greaterThanOrEqual(2,3) == false" ==> static boolean greaterThanOrEqual(int a,int b){
+"greaterThanOrEqual(3,2)" in "greaterThanOrEqual(3,2) == true" ==> static boolean greaterThanOrEqual(int a,int b){
+"i" in "i << j" ==> int i
+"i" in "i >> j" ==> int i
+"i" in "i >>> j" ==> int i
+"j" in "i << j" ==> int j
+"j" in "i >> j" ==> int j
+"j" in "i >>> j" ==> int j
+"lessThan(2,2)" in "lessThan(2,2) == false" ==> static boolean lessThan(int a,int b){
+"lessThan(2,3)" in "lessThan(2,3) == true" ==> static boolean lessThan(int a,int b){
+"lessThan(3,2)" in "lessThan(3,2) == false" ==> static boolean lessThan(int a,int b){
+"lessThanOrEqual(2,2)" in "lessThanOrEqual(2,2) == true" ==> static boolean lessThanOrEqual(int a,int b){
+"lessThanOrEqual(2,3)" in "lessThanOrEqual(2,3) == true" ==> static boolean lessThanOrEqual(int a,int b){
+"lessThanOrEqual(3,2)" in "lessThanOrEqual(3,2) == false" ==> static boolean lessThanOrEqual(int a,int b){
+"mod(-2,-3)" in "mod(-2,-3) == -2" ==> static int mod(int a,int b){
+"mod(-2,3)" in "mod(-2,3) == -2" ==> static int mod(int a,int b){
+"mod(-3,-2)" in "mod(-3,-2) == -1" ==> static int mod(int a,int b){
+"mod(-3,2)" in "mod(-3,2) == -1" ==> static int mod(int a,int b){
+"mod(2,-3)" in "mod(2,-3) == 2" ==> static int mod(int a,int b){
+"mod(2,3)" in "mod(2,3) == 2" ==> static int mod(int a,int b){
+"mod(3,-2)" in "mod(3,-2) == 1" ==> static int mod(int a,int b){
+"mod(3,2)" in "mod(3,2) == 1" ==> static int mod(int a,int b){
+"multiply(-2,-3)" in "multiply(-2,-3) == 6" ==> static int multiply(int a,int b){
+"multiply(-2,3)" in "multiply(-2,3) == -6" ==> static int multiply(int a,int b){
+"multiply(2,-3)" in "multiply(2,-3) == -6" ==> static int multiply(int a,int b){
+"multiply(2,3)" in "multiply(2,3) == 6" ==> static int multiply(int a,int b){
+"notEqual(2,2)" in "notEqual(2,2) == false" ==> static boolean notEqual(int a,int b){
+"notEqual(2,3)" in "notEqual(2,3) == true" ==> static boolean notEqual(int a,int b){
+"notEqual(3,2)" in "notEqual(3,2) == true" ==> static boolean notEqual(int a,int b){
+"shiftLeft(-2,1)" in "shiftLeft(-2,1) == -4" ==> static int shiftLeft(int i,int j){
+"shiftLeft(2,1)" in "shiftLeft(2,1) == 4" ==> static int shiftLeft(int i,int j){
+"shiftRight(-2,1)" in "shiftRight(-2,1) == -1" ==> static int shiftRight(int i,int j){
+"shiftRight(2,1)" in "shiftRight(2,1) == 1" ==> static int shiftRight(int i,int j){
+"subtract(-2,-3)" in "subtract(-2,-3) == 1" ==> static int subtract(int a,int b){
+"subtract(-2,3)" in "subtract(-2,3) == -5" ==> static int subtract(int a,int b){
+"subtract(2,-3)" in "subtract(2,-3) == 5" ==> static int subtract(int a,int b){
+"subtract(2,3)" in "subtract(2,3) == -1" ==> static int subtract(int a,int b){
+"unsignedShiftRight(-2,1)" in "unsignedShiftRight(-2,1) == 2147483647" ==> static int unsignedShiftRight(int i,int j){
+"unsignedShiftRight(2,1)" in "unsignedShiftRight(2,1) == 1" ==> static int unsignedShiftRight(int i,int j){

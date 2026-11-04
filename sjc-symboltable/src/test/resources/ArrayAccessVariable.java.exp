@@ -1,0 +1,12 @@
+"a" in "a=new int[]{1,2,3}" ==> int[] a;
+"a" in "a[a[i]]" ==> int[] a;
+"a" in "a[b[a[i]]]" ==> int[] a;
+"a" in "a[i]" ==> int[] a;
+"b" in "b=new int[3]" ==> int[] b;
+"b" in "b[a[i] * i]" ==> int[] b;
+"b" in "b[a[i]]" ==> int[] b;
+"b" in "b[i]" ==> int[] b;
+"i" in "a[i] * i" ==> int i;
+"i" in "a[i]" ==> int i;
+"i" in "b[i]" ==> int i;
+"i" in "i=0" ==> int i;

@@ -1,0 +1,10 @@
+"i" in "i % j" ==> int i
+"j" in "i % j" ==> int j
+"remainder(-2,-3)" in "remainder(-2,-3) == -2" ==> static int remainder(int i,int j){
+"remainder(-2,3)" in "remainder(-2,3) == -2" ==> static int remainder(int i,int j){
+"remainder(-3,-2)" in "remainder(-3,-2) == -1" ==> static int remainder(int i,int j){
+"remainder(-3,2)" in "remainder(-3,2) == -1" ==> static int remainder(int i,int j){
+"remainder(2,-3)" in "remainder(2,-3) == 2" ==> static int remainder(int i,int j){
+"remainder(2,3)" in "remainder(2,3) == 2" ==> static int remainder(int i,int j){
+"remainder(3,-2)" in "remainder(3,-2) == 1" ==> static int remainder(int i,int j){
+"remainder(3,2)" in "remainder(3,2) == 1" ==> static int remainder(int i,int j){

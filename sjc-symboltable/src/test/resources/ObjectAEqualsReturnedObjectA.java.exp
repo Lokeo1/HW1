@@ -1,0 +1,6 @@
+Object64 ==> class Object64 {
+"o" in "o == returnObject(o)" ==> Object64 o;
+"o" in "o=new Object64()" ==> Object64 o;
+"o" in "return o;" ==> Object64 o
+"o" in "returnObject(o)" ==> Object64 o;
+"returnObject(o)" in "o == returnObject(o)" ==> static Object64 returnObject(Object64 o){

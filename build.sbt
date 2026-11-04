@@ -17,7 +17,7 @@ lazy val commonSettings = Seq(
     "-feature",
     "-unchecked"
   ),
-  javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
+  javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-g"),
   javacOptions in (Compile, doc) := Seq("-notimestamp", "-linksource"),
   libraryDependencies ++= Seq(
     "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.1",
@@ -91,3 +91,19 @@ lazy val sjcAst =
       libraryDependencies += "junit" % "junit" % "4.13.2" % Test
     )
     .dependsOn(sjcParser)
+
+lazy val sjcSymbolTable =
+  (project in file("sjc-symboltable"))
+    .settings(commonSettings: _*)
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
+    .dependsOn(sjcParser, sjcAst)
+
+lazy val sjcTypeChecker =
+  (project in file("sjc-typechecker"))
+    .settings(commonSettings: _*)
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
+    .dependsOn(sjcParser, sjcAst, sjcSymbolTable)

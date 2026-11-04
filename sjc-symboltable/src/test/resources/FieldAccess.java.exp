@@ -1,0 +1,15 @@
+FieldAccessBar ==> class FieldAccessBar {
+FieldAccessFoo ==> class FieldAccessFoo {
+"b" in "b.f" ==> FieldAccessBar b;
+"b" in "b.i" ==> FieldAccessBar b;
+"b" in "b=new FieldAccessBar()" ==> FieldAccessBar b;
+"f" in "b.f=f" ==> FieldAccessFoo f;
+"f" in "f.i" ==> FieldAccessFoo f;
+"f" in "f=b.f" ==> FieldAccessFoo f;
+"f" in "f=new FieldAccessFoo()" ==> FieldAccessFoo f;
+"i" in "i == 0" ==> int i;
+"i" in "i == 1" ==> int i;
+"i" in "i == 2" ==> int i;
+"i" in "i=b.f.i" ==> int i;
+"i" in "i=b.i" ==> int i;
+"i" in "i=f.i" ==> int i;

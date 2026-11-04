@@ -1,0 +1,4 @@
+CWN ==> class CWN {
+"o" in "o=new CWN()" ==> CWN o;
+"o" in "o=true ? null : o" ==> CWN o;
+"o" in "true ? null : o" ==> CWN o;

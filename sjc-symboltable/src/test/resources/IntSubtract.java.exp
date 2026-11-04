@@ -1,0 +1,6 @@
+"i" in "i - j" ==> int i
+"j" in "i - j" ==> int j
+"subtract(-2,-3)" in "subtract(-2,-3) == 1" ==> static int subtract(int i,int j){
+"subtract(-2,3)" in "subtract(-2,3) == -5" ==> static int subtract(int i,int j){
+"subtract(2,-3)" in "subtract(2,-3) == 5" ==> static int subtract(int i,int j){
+"subtract(2,3)" in "subtract(2,3) == -1" ==> static int subtract(int i,int j){

@@ -1,0 +1,3 @@
+"i" in "+i" ==> int i
+"plus(-2)" in "plus(-2) == -2" ==> static int plus(int i){
+"plus(2)" in "plus(2) == 2" ==> static int plus(int i){

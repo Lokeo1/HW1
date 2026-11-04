@@ -1,0 +1,6 @@
+"i" in "i++" ==> int i;
+"i" in "i=0" ==> int i;
+"j" in "j++" ==> int j;
+"j" in "j=0" ==> int j;
+"k" in "k++" ==> int k;
+"k" in "k=0" ==> int k;

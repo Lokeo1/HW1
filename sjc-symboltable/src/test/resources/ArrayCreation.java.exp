@@ -1,0 +1,2 @@
+AC ==> class AC {
+"acs" in "acs=new AC[]{null,new AC()}" ==> AC[] acs;

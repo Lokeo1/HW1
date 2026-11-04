@@ -1,0 +1,4 @@
+"B" in "B=new boolean[]{true,false}" ==> boolean[] B;
+"B" in "B[i]" ==> boolean[] B;
+"i" in "B[i]" ==> int i;
+"i" in "i=1" ==> int i;

@@ -1,0 +1,6 @@
+"add(-2,-3)" in "add(-2,-3) == -5" ==> static int add(int i,int j){
+"add(-2,3)" in "add(-2,3) == 1" ==> static int add(int i,int j){
+"add(2,-3)" in "add(2,-3) == -1" ==> static int add(int i,int j){
+"add(2,3)" in "add(2,3) == 5" ==> static int add(int i,int j){
+"i" in "i + j" ==> int i
+"j" in "i + j" ==> int j

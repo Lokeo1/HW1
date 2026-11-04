@@ -1,0 +1,3 @@
+"i" in "-i" ==> int i
+"negate(-2)" in "negate(-2) == 2" ==> static int negate(int i){
+"negate(2)" in "negate(2) == -2" ==> static int negate(int i){

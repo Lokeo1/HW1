@@ -25,3 +25,5 @@ This section provides links to the README files for each assignment in the cours
 4. See [bottom-up-parser/READE.md](bottom-up-parser/README.md)
 5. See [sjc-parser/README.md](sjc-parser/README.md)
 6. See [sjc-ast/README.md](sjc-ast/README.md)
+7. See [sjc-symboltable/README.md](sjc-symboltable/README.md)
+8. See [sjc-typechecker/README.md](sjc-typechecker/README.md)

@@ -1,0 +1,6 @@
+NewIDFoo ==> class NewIDFoo {
+"f" in "f=new NewIDFoo()" ==> NewIDFoo f;
+"f" in "{f,g[0]}" ==> NewIDFoo f;
+"g" in "g=new NewIDFoo[4]" ==> NewIDFoo[] g;
+"g" in "g[0]" ==> NewIDFoo[] g;
+"h" in "h=new NewIDFoo[]{f,g[0]}" ==> NewIDFoo[] h;

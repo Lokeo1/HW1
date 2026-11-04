@@ -1,0 +1,2 @@
+"b" in "b=true" ==> boolean b;
+"i" in "i=0" ==> int i;

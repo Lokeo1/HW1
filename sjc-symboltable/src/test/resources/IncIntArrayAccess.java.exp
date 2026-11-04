@@ -1,0 +1,2 @@
+"I" in "I=new int[1]" ==> int[] I;
+"I" in "I[0]" ==> int[] I;

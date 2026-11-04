@@ -1,0 +1,5 @@
+"i" in "i < j" ==> int i
+"j" in "i < j" ==> int j
+"lessThan(2,2)" in "lessThan(2,2) == false" ==> static boolean lessThan(int i,int j){
+"lessThan(2,3)" in "lessThan(2,3) == true" ==> static boolean lessThan(int i,int j){
+"lessThan(3,2)" in "lessThan(3,2) == false" ==> static boolean lessThan(int i,int j){

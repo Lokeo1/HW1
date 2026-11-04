@@ -1,0 +1,14 @@
+"args" in "StaticJavaLib.getIntArgument(args,0)" ==> String[] args
+"args" in "StaticJavaLib.getIntArgument(args,1)" ==> String[] args
+"i" in "i + 1" ==> int i;
+"i" in "i < n" ==> int i;
+"i" in "i=0" ==> int i;
+"i" in "i=i + 1" ==> int i;
+"m" in "result * m" ==> int m
+"n" in "i < n" ==> int n
+"n" in "n >= 1" ==> int n
+"power(StaticJavaLib.getIntArgument(args,0),StaticJavaLib.getIntArgument(args,1))" in "StaticJavaLib.println(power(StaticJavaLib.getIntArgument(args,0),StaticJavaLib.getIntArgument(args,1)))" ==> static int power(int m,int n){
+"result" in "result * m" ==> int result;
+"result" in "result=1" ==> int result;
+"result" in "result=result * m" ==> int result;
+"result" in "return result;" ==> int result;

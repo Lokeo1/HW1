@@ -1,0 +1,5 @@
+"i" in "i < 10" ==> int i;
+"i" in "i == 10" ==> int i;
+"i" in "i++" ==> int i;
+"i" in "i=0" ==> int i;
+"missingInit()" in "missingInit();" ==> static void missingInit(){

@@ -1,0 +1,8 @@
+"a" in "a == 0" ==> int a;
+"a" in "a == 1" ==> int a;
+"a" in "a == 2" ==> int a;
+"a" in "a == 3" ==> int a;
+"a" in "a=0" ==> int a;
+"a" in "a=1" ==> int a;
+"a" in "a=2" ==> int a;
+"a" in "a=3" ==> int a;

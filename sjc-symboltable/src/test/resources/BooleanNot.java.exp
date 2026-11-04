@@ -1,0 +1,3 @@
+"b" in "!b" ==> boolean b
+"not(false)" in "not(false) == true" ==> static boolean not(boolean b){
+"not(true)" in "not(true) == false" ==> static boolean not(boolean b){
