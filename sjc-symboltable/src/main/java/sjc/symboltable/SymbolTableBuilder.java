@@ -116,31 +116,91 @@ public class SymbolTableBuilder {
 
     @Override
     public boolean visit(final FieldDeclaration node) {
-      // TODO
+      final boolean isPublic = hasPublicModifier(node.modifiers());
+      for (final Object o : node.fragments()) {
+        final VariableDeclarationFragment fragment =
+            (VariableDeclarationFragment) o;
+        final String name = fragment.getName().getIdentifier();
+        if (isPublic) {
+          final Pair<String, String> key = new Pair<>(this.className, name);
+          if (this.fieldMap.putIfAbsent(key, node) != null) {
+            throw new Error(node, "Duplicate field: " + name);
+          }
+        } else if (this.nameMap.putIfAbsent(name, node) != null) {
+          throw new Error(node, "Duplicate field: " + name);
+        }
+      }
       return false;
     }
 
     @Override
     public boolean visit(final MethodDeclaration node) {
-      // TODO
+      final Map<String, ASTNode> enclosingNames = this.nameMap;
+      final Set<String> enclosingLocalNames = this.localNames;
+      this.nameMap = new HashMap<>(enclosingNames);
+      this.localNames = new HashSet<>();
+      try {
+        for (final Object o : node.parameters()) {
+          final SingleVariableDeclaration parameter =
+              (SingleVariableDeclaration) o;
+          final String parameterName = parameter.getName().getIdentifier();
+          if (!this.localNames.add(parameterName)) {
+            throw new Error(parameter, "Duplicate parameter: " + parameterName);
+          }
+          this.nameMap.put(parameterName, parameter);
+        }
+        if (node.getBody() != null) {
+          node.getBody().accept(this);
+        }
+      } finally {
+        this.nameMap = enclosingNames;
+        this.localNames = enclosingLocalNames;
+      }
       return false;
     }
 
     @Override
     public boolean visit(final MethodInvocation node) {
-      // TODO
+      final Expression expression = node.getExpression();
+      if (expression == null || this.className.equals(expression.toString())) {
+        final String name = node.getName().getIdentifier();
+        final MethodDeclaration declaration = this.methodMap.get(name);
+        if (declaration == null) {
+          throw new Error(node, "Undefined method: " + name);
+        }
+        this.result.put(node, declaration);
+      }
+      for (final Object argument : node.arguments()) {
+        ((Expression) argument).accept(this);
+      }
       return false;
     }
 
     @Override
     public boolean visit(final SimpleName node) {
-      // TODO
+      final String name = node.getIdentifier();
+      final ASTNode declaration = this.nameMap.get(name);
+      if (declaration == null) {
+        throw new Error(node, "Undefined variable: " + name);
+      }
+      this.result.put(node, declaration);
       return false;
     }
 
     @Override
     public boolean visit(final VariableDeclarationStatement node) {
-      // TODO
+      for (final Object o : node.fragments()) {
+        final VariableDeclarationFragment fragment =
+            (VariableDeclarationFragment) o;
+        final String name = fragment.getName().getIdentifier();
+        if (!this.localNames.add(name)) {
+          throw new Error(node, "Duplicate local variable: " + name);
+        }
+        this.nameMap.put(name, node);
+        if (fragment.getInitializer() != null) {
+          fragment.getInitializer().accept(this);
+        }
+      }
       return false;
     }
 
@@ -177,7 +237,35 @@ public class SymbolTableBuilder {
 
     @Override
     public boolean visit(final TypeDeclaration node) {
-      // TODO
+      final String name = node.getName().getIdentifier();
+      if (this.classMap.putIfAbsent(name, node) != null) {
+        throw new Error(node, "Duplicate class: " + name);
+      }
+      final String enclosingClassName = this.className;
+      final Map<String, ASTNode> enclosingNames = this.nameMap;
+      final Map<String, MethodDeclaration> enclosingMethods = this.methodMap;
+      this.className = name;
+      this.nameMap = new HashMap<>();
+      this.methodMap = new HashMap<>();
+      try {
+        for (final FieldDeclaration field : node.getFields()) {
+          field.accept(this);
+        }
+        final MethodDeclaration[] methods = node.getMethods();
+        for (final MethodDeclaration method : methods) {
+          final String methodName = method.getName().getIdentifier();
+          if (this.methodMap.putIfAbsent(methodName, method) != null) {
+            throw new Error(method, "Duplicate method: " + methodName);
+          }
+        }
+        for (final MethodDeclaration method : methods) {
+          method.accept(this);
+        }
+      } finally {
+        this.className = enclosingClassName;
+        this.nameMap = enclosingNames;
+        this.methodMap = enclosingMethods;
+      }
       return false;
     }
   }

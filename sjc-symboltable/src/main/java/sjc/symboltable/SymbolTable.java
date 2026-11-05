@@ -88,7 +88,10 @@ public class SymbolTable {
     final StringBuilder sb = new StringBuilder();
     final TreeSet<String> set = new TreeSet<>();
     for (final String s : this.classMap.keySet()) {
-      set.add(s + " ==> " + Util.getFirstLine(this.classMap.get(s)));
+      final TypeDeclaration declaration = this.classMap.get(s);
+      if (!org.eclipse.jdt.core.dom.Modifier.isPublic(declaration.getModifiers())) {
+        set.add(s + " ==> " + Util.getFirstLine(declaration));
+      }
     }
     for (final String s : set) {
       sb.append(s);
