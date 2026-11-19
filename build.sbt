@@ -107,3 +107,11 @@ lazy val sjcTypeChecker =
       libraryDependencies += "junit" % "junit" % "4.13.2" % Test
     )
     .dependsOn(sjcParser, sjcAst, sjcSymbolTable)
+
+lazy val sjcLLGen =
+  (project in file("sjc-ll-gen"))
+    .settings(commonSettings: _*)
+    .settings(
+      libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+    )
+    .dependsOn(sjcParser, sjcAst, sjcTypeChecker)

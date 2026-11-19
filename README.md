@@ -27,3 +27,4 @@ This section provides links to the README files for each assignment in the cours
 6. See [sjc-ast/README.md](sjc-ast/README.md)
 7. See [sjc-symboltable/README.md](sjc-symboltable/README.md)
 8. See [sjc-typechecker/README.md](sjc-typechecker/README.md)
+9. See [sjc-ll-gen/README.md](sjc-ll-gen/README.md)
