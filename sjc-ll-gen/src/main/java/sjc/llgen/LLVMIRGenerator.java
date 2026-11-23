@@ -298,49 +298,149 @@ public final class LLVMIRGenerator {
 
       @Override
       public boolean visit(final Block node) {
-        // TODO
+        this.handled = true;
+        final List <Statement> statements = node.statements();
+        for(final Statement statement : statements) {
+            emitStatement(statement);
+        }
         return false;
       }
 
       @Override
       public boolean visit(final ExpressionStatement node) {
-        // TODO
+        this.handled = true;
+        emitSideEffect(node.getExpression());
         return false;
       }
 
       @Override
       public boolean visit(final IfStatement node) {
-        // TODO
+        this.handled = true;
+        final Value condition = emitExpression(node.getExpression());
+        final String thenLabel = label("if.then");
+        final String endLabel = label("if.end");
+        final Statement elseStatement = node.getElseStatement();
+        final String elseLabel =
+            elseStatement == null ? endLabel : label("if.else");
+        branch(condition, thenLabel, elseLabel);
+
+        startBlock(thenLabel);
+        emitStatement(node.getThenStatement());
+        final boolean thenTerminated = FunctionEmitter.this.terminated;
+        if (!thenTerminated) {
+          jump(endLabel);
+        }
+
+        if (elseStatement != null) {
+          startBlock(elseLabel);
+          emitStatement(elseStatement);
+          if (!FunctionEmitter.this.terminated) {
+            jump(endLabel);
+          } else if (thenTerminated) {
+            return false;
+          }
+        }
+        startBlock(endLabel);
         return false;
       }
 
       @Override
       public boolean visit(final WhileStatement node) {
-        // TODO
+        this.handled = true;
+        final String thenLabel = label("while.then");
+        final String endLabel = label("while.end");
+        final String conditionLabel = label("while.condition");
+        final Statement body = node.getBody();
+        jump(conditionLabel);
+        startBlock(conditionLabel);
+        final Value condition = emitExpression(node.getExpression());
+        branch(condition, thenLabel, endLabel);
+        startBlock(thenLabel);
+        emitStatement(body);
+        if(!FunctionEmitter.this.terminated) {
+            jump(conditionLabel);
+        }
+        startBlock(endLabel);
         return false;
       }
 
       @Override
       public boolean visit(final DoStatement node) {
-        // TODO
+        this.handled = true;
+        final Statement body = node.getBody();
+        final String bodyLabel = label("do.body");
+        final String endLabel = label("do.end");
+        jump(bodyLabel);
+        startBlock(bodyLabel);
+        emitStatement(body);
+        if(!FunctionEmitter.this.terminated) {
+            final Value condition = emitExpression(node.getExpression());
+            branch(condition, bodyLabel, endLabel);
+        }
+        startBlock(endLabel);
         return false;
       }
 
       @Override
       public boolean visit(final ForStatement node) {
-        // TODO
+        this.handled = true;
+        final List <Expression> initializers = node.initializers();
+        final String init = label("for.init");
+        final String loop = label("for.body");
+        final String end = label("for.end");
+        jump(init);
+        startBlock(init);
+        for(Expression statement : initializers) {
+            emitSideEffect(statement);
+        }
+        final Expression expr = node.getExpression();
+        if(!FunctionEmitter.this.terminated) {
+            if(expr == null) {
+                jump(loop);
+            }
+            else {
+                final Value condition = emitExpression(expr);
+                branch(condition, loop, end);
+            }
+        }
+        startBlock(loop);
+        final Statement body = node.getBody();
+        emitStatement(body);
+        final List <Expression> updaters = node.updaters();
+        if(!FunctionEmitter.this.terminated) {
+            for(Expression expression : updaters) {
+                emitSideEffect(expression);
+            }
+            if(expr == null) {
+                jump(loop);
+            }
+            else {
+                final Value condition = emitExpression(expr);
+                branch(condition, loop, end);
+            }
+        }
+        startBlock(end);
         return false;
       }
 
       @Override
       public boolean visit(final ReturnStatement node) {
-        // TODO
+        this.handled = true;
+        final Expression expression = node.getExpression();
+        if (expression == null) {
+          line("ret void");
+        } else {
+          final Value value = emitExpression(expression);
+          line("ret " + llvmType(FunctionEmitter.this.returnType) + " "
+              + value.operand);
+        }
+        FunctionEmitter.this.terminated = true;
         return false;
       }
 
       @Override
       public boolean visit(final VariableDeclarationStatement node) {
-        // TODO
+        this.handled = true;
         return false;
       }
 
@@ -394,93 +494,341 @@ public final class LLVMIRGenerator {
 
       @Override
       public boolean visit(final Assignment node) {
-        // TODO
+        this.handled = true;
+        if (node.getOperator() != Assignment.Operator.ASSIGN) {
+          throw error(node, "Unsupported assignment operator: " + node.getOperator());
+        }
+        final Address address = emitAddress(node.getLeftHandSide());
+        final Value assigned = emitExpression(node.getRightHandSide());
+        line("store " + llvmType(address.type) + " " + assigned.operand
+            + ", ptr " + address.pointer);
+        this.value = new Value(address.type, assigned.operand);
         return false;
       }
 
       @Override
       public boolean visit(final PostfixExpression node) {
-        // TODO
+        this.handled = true;
+        final Address address = emitAddress(node.getOperand());
+        final Value old = load(address);
+        final String result = temp();
+        final String operation;
+        if (node.getOperator() == PostfixExpression.Operator.INCREMENT) {
+          operation = "add";
+        } else if (node.getOperator() == PostfixExpression.Operator.DECREMENT) {
+          operation = "sub";
+        } else {
+          throw error(node, "Unsupported postfix operator: " + node.getOperator());
+        }
+        line(result + " = " + operation + " i32 " + old.operand + ", 1");
+        line("store i32 " + result + ", ptr " + address.pointer);
+        this.value = old;
         return false;
       }
 
       @Override
       public boolean visit(final NumberLiteral node) {
-        // TODO
+        this.handled = true;
+        this.value = new Value(requireType(node), node.getToken());
         return false;
       }
 
       @Override
       public boolean visit(final BooleanLiteral node) {
-        // TODO
+        this.handled = true;
+        this.value = new Value(requireType(node), node.booleanValue() ? "1" : "0");
         return false;
       }
 
       @Override
       public boolean visit(final NullLiteral node) {
-        // TODO
+        this.handled = true;
+        this.value = new Value(requireType(node), "null");
         return false;
       }
 
       @Override
       public boolean visit(final ParenthesizedExpression node) {
-        // TODO
+        this.handled = true;
+        this.value = emitExpression(node.getExpression());
         return false;
       }
 
       @Override
       public boolean visit(final SimpleName node) {
-        // TODO
+        this.handled = true;
+        this.value = load(emitAddress(node));
         return false;
       }
 
       @Override
       public boolean visit(final ArrayAccess node) {
-        // TODO
+        this.handled = true;
+        this.value = load(emitAddress(node));
         return false;
       }
 
       @Override
       public boolean visit(final FieldAccess node) {
-        // TODO
+        this.handled = true;
+        this.value = load(emitAddress(node));
         return false;
       }
 
       @Override
       public boolean visit(final PrefixExpression node) {
-        // TODO
+        this.handled = true;
+        final Value operand = emitExpression(node.getOperand());
+        if (node.getOperator() == PrefixExpression.Operator.PLUS) {
+          this.value = operand;
+          return false;
+        }
+        final String result = temp();
+        if (node.getOperator() == PrefixExpression.Operator.MINUS) {
+          line(result + " = sub i32 0, " + operand.operand);
+        } else if (node.getOperator() == PrefixExpression.Operator.COMPLEMENT) {
+          line(result + " = xor i32 " + operand.operand + ", -1");
+        } else if (node.getOperator() == PrefixExpression.Operator.NOT) {
+          line(result + " = xor i1 " + operand.operand + ", 1");
+        } else {
+          throw error(node, "Unsupported prefix operator: " + node.getOperator());
+        }
+        this.value = new Value(operand.type, result);
         return false;
       }
 
       @Override
       public boolean visit(final InfixExpression node) {
-        // TODO
+        this.handled = true;
+        Value result = emitExpression(node.getLeftOperand());
+        result = emitBinary(node, result, node.getRightOperand());
+        for (final Object operand : node.extendedOperands()) {
+          result = emitBinary(node, result, (Expression) operand);
+        }
+        this.value = result;
         return false;
       }
 
       @Override
       public boolean visit(final ConditionalExpression node) {
-        // TODO
+        this.handled = true;
+        final Value condition = emitExpression(node.getExpression());
+        final String yes = label("cond.then");
+        final String no = label("cond.else");
+        final String end = label("cond.end");
+        branch(condition, yes, no);
+        startBlock(yes);
+        final Value thenValue = emitExpression(node.getThenExpression());
+        final String thenBlock = FunctionEmitter.this.block;
+        jump(end);
+        startBlock(no);
+        final Value elseValue = emitExpression(node.getElseExpression());
+        final String elseBlock = FunctionEmitter.this.block;
+        jump(end);
+        startBlock(end);
+        final Type type = requireType(node);
+        final String result = temp();
+        line(result + " = phi " + llvmType(type) + " [ " + thenValue.operand
+            + ", %" + thenBlock + " ], [ " + elseValue.operand + ", %"
+            + elseBlock + " ]");
+        this.value = new Value(type, result);
         return false;
       }
 
       @Override
       public boolean visit(final MethodInvocation node) {
-        // TODO
+        this.handled = true;
+        final Object declaration = LLVMIRGenerator.this.symbols.get(node);
+        final Pair<Type, List<Type>> signature = requireMethodType(declaration);
+        final String name;
+        if (declaration instanceof MethodDeclaration) {
+          name = functionName((MethodDeclaration) declaration);
+        } else if (declaration instanceof Method) {
+          name = runtimeFunction((Method) declaration);
+        } else {
+          throw error(node, "Unresolved method: " + node.getName());
+        }
+        final StringBuilder call = new StringBuilder("call ")
+            .append(llvmType(signature.first)).append(' ').append(name).append('(');
+        for (int i = 0; i < node.arguments().size(); i++) {
+          final Value argument = emitExpression((Expression) node.arguments().get(i));
+          if (i != 0) {
+            call.append(", ");
+          }
+          call.append(llvmType(signature.second.get(i))).append(' ')
+              .append(argument.operand);
+        }
+        call.append(')');
+        if (signature.first instanceof VoidType || this.sideEffect) {
+          line(call.toString());
+        } else {
+          final String result = temp();
+          line(result + " = " + call);
+          this.value = new Value(signature.first, result);
+        }
         return false;
       }
 
       @Override
       public boolean visit(final ArrayCreation node) {
-        // TODO
+        this.handled = true;
+        final ArrayType type = (ArrayType) requireType(node);
+        final String count;
+        if (node.getInitializer() != null) {
+          count = Integer.toString(node.getInitializer().expressions().size());
+        } else {
+          final Value length = emitExpression((Expression) node.dimensions().get(0));
+          count = temp();
+          line(count + " = sext i32 " + length.operand + " to i64");
+        }
+        final String result = temp();
+        line(result + " = call ptr @sj_calloc(i64 " + count + ", i64 "
+            + allocationSize(type.baseType) + ")");
+        if (node.getInitializer() != null) {
+          final List<?> elements = node.getInitializer().expressions();
+          for (int i = 0; i < elements.size(); i++) {
+            final Value element = emitExpression((Expression) elements.get(i));
+            final String pointer = temp();
+            line(pointer + " = getelementptr " + llvmType(type.baseType)
+                + ", ptr " + result + ", i32 " + i);
+            line("store " + llvmType(type.baseType) + " " + element.operand
+                + ", ptr " + pointer);
+          }
+        }
+        this.value = new Value(type, result);
         return false;
       }
 
       @Override
       public boolean visit(final ClassInstanceCreation node) {
-        // TODO
+        this.handled = true;
+        final ClassType type = (ClassType) requireType(node);
+        final String result = temp();
+        line(result + " = call ptr @sj_calloc(i64 1, i64 ptrtoint (ptr "
+            + "getelementptr (" + classType(type.name)
+            + ", ptr null, i32 1) to i64))");
+        this.value = new Value(type, result);
         return false;
       }
+    }
+
+    private Value emitBinary(final InfixExpression node, final Value left,
+        final Expression rightExpression) {
+      final String operator = node.getOperator().toString();
+      final Type resultType = requireType(node);
+      if ("&&".equals(operator) || "||".equals(operator)) {
+        final boolean and = "&&".equals(operator);
+        final String leftBlock = this.block;
+        final String rightLabel = label("logic.rhs");
+        final String end = label("logic.end");
+        branch(left, and ? rightLabel : end, and ? end : rightLabel);
+        startBlock(rightLabel);
+        final Value right = emitExpression(rightExpression);
+        final String rightBlock = this.block;
+        jump(end);
+        startBlock(end);
+        final String result = temp();
+        line(result + " = phi i1 [ " + (and ? "0" : "1") + ", %"
+            + leftBlock + " ], [ " + right.operand + ", %" + rightBlock + " ]");
+        return new Value(resultType, result);
+      }
+      final Value right = emitExpression(rightExpression);
+      String rightOperand = right.operand;
+      final String instruction;
+      switch (operator) {
+        case "+": instruction = "add"; break;
+        case "-": instruction = "sub"; break;
+        case "*": instruction = "mul"; break;
+        case "&": instruction = "and"; break;
+        case "|": instruction = "or"; break;
+        case "^": instruction = "xor"; break;
+        case "<<": instruction = "shl"; break;
+        case ">>": instruction = "ashr"; break;
+        case ">>>": instruction = "lshr"; break;
+        case "==": instruction = "icmp eq"; break;
+        case "!=": instruction = "icmp ne"; break;
+        case "<": instruction = "icmp slt"; break;
+        case "<=": instruction = "icmp sle"; break;
+        case ">": instruction = "icmp sgt"; break;
+        case ">=": instruction = "icmp sge"; break;
+        case "/":
+        case "%": {
+          // Widen before division so MIN_VALUE / -1 has Java's wraparound result.
+          final String wideLeft = temp();
+          final String wideRight = temp();
+          final String wideResult = temp();
+          final String result = temp();
+          line(wideLeft + " = sext i32 " + left.operand + " to i64");
+          line(wideRight + " = sext i32 " + right.operand + " to i64");
+          line(wideResult + " = " + ("/".equals(operator) ? "sdiv" : "srem")
+              + " i64 " + wideLeft + ", " + wideRight);
+          line(result + " = trunc i64 " + wideResult + " to i32");
+          return new Value(resultType, result);
+        }
+        default: throw error(node, "Unsupported infix operator: " + operator);
+      }
+      if ("<<".equals(operator) || ">>".equals(operator) || ">>>".equals(operator)) {
+        rightOperand = temp();
+        line(rightOperand + " = and i32 " + right.operand + ", 31");
+      }
+      final String result = temp();
+      final String operandType = isReference(left.type) ? "ptr" : llvmType(left.type);
+      line(result + " = " + instruction + " " + operandType + " "
+          + left.operand + ", " + rightOperand);
+      return new Value(resultType, result);
+    }
+
+    private Address emitAddress(final Expression left) {
+      final Address address;
+      if (left instanceof SimpleName) {
+        final String name = ((SimpleName) left).getIdentifier();
+        final Slot local = FunctionEmitter.this.locals.get(name);
+        if (local != null) {
+          address = new Address(local.address, local.type);
+        } else {
+          final Object symbol = LLVMIRGenerator.this.symbols.get(left);
+          if (!(symbol instanceof FieldDeclaration)) {
+            throw error(left, "Unresolved assignment target: " + name);
+          }
+          final FieldDeclaration field = (FieldDeclaration) symbol;
+          final TypeDeclaration owner = (TypeDeclaration) field.getParent();
+          address = new Address(globalName(owner.getName().getIdentifier(), name),
+              requireType(field));
+        }
+      } else if (left instanceof ArrayAccess) {
+        final ArrayAccess access = (ArrayAccess) left;
+        final Value array = emitExpression(access.getArray());
+        final Value index = emitExpression(access.getIndex());
+        final Type elementType = requireType(access);
+        final String pointer = temp();
+        line(pointer + " = getelementptr " + llvmType(elementType) + ", ptr "
+            + array.operand + ", i32 " + index.operand);
+        address = new Address(pointer, elementType);
+      } else if (left instanceof FieldAccess) {
+        final FieldAccess access = (FieldAccess) left;
+        final Value receiver = emitExpression(access.getExpression());
+        final FieldDeclaration field =
+            (FieldDeclaration) LLVMIRGenerator.this.symbols.get(access);
+        if (field == null) {
+          throw error(access, "Unresolved assignment field: " + access.getName());
+        }
+        final TypeDeclaration owner = (TypeDeclaration) field.getParent();
+        final String pointer = temp();
+        line(pointer + " = getelementptr "
+            + classType(owner.getName().getIdentifier()) + ", ptr "
+            + receiver.operand + ", i32 0, i32 "
+            + LLVMIRGenerator.this.fieldIndices.get(field));
+        address = new Address(pointer, requireType(field));
+      } else {
+        throw error(left, "Unsupported assignment target: " + left);
+      }
+      return address;
+    }
+
+    private Value load(final Address address) {
+      final String result = temp();
+      line(result + " = load " + llvmType(address.type) + ", ptr " + address.pointer);
+      return new Value(address.type, result);
     }
 
     private void branch(final Value condition, final String yes,
